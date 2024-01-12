@@ -3,17 +3,10 @@ package main
 import (
 	"net/http"
 
-	"github.com/rsheldon3ayers/dumb-module/backend/internal/db"
+	"github.com/rsheldon3ayers/dumb-module/backend/internal/api/routes"
 )
 
 func main() {
-
-	// Initialize database
-	db.Init()
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Backend is up and running!"))
-	})
-
-	http.ListenAndServe(":8080", nil)
+	r := routes.Routes()
+	http.ListenAndServe(":8080", r)
 }

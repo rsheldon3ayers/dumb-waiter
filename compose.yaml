@@ -13,5 +13,17 @@ services:
       - 5432:5432
     volumes: 
       - pgdata:/var/lib/postgresql/data
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: backend.dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env
 volumes:
   pgdata: {}

@@ -2,9 +2,6 @@ package db
 
 import (
 	"log"
-	"os"
-
-	"github.com/joho/godotenv"
 
 	"github.com/rsheldon3ayers/dumb-module/backend/internal/models"
 	"gorm.io/driver/postgres"
@@ -13,13 +10,10 @@ import (
 
 func Init() *gorm.DB {
 
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
-	}
-	connectionString := os.Getenv("DATABASE_URL")
+	DB_URL := "postgres://postgres:postgres@db:5432/postgres?sslmode=disable"
 
 	// Connect to database
-	db, err := gorm.Open(postgres.Open(connectionString), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(DB_URL), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
